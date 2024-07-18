@@ -1,6 +1,6 @@
 import { Simplify } from 'type-fest'
 import { PaginationResult } from './api'
-import { PrunedBlob } from '../utils/format'
+import { PrunedBlob } from '.'
 
 export type IssuanceTokenMarketCap = {
   usd: string
