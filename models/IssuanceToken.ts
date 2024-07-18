@@ -1,5 +1,5 @@
-import { Schema, model, models } from 'mongoose'
-import { IssuanceToken } from '../types'
+import { Schema, model, models } from "mongoose";
+import { type IssuanceToken } from "../types";
 
 const IssuanceTokenSchema = new Schema<IssuanceToken>(
   {
@@ -104,11 +104,11 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
     },
   } satisfies Record<keyof IssuanceToken, any>,
   { timestamps: true }
-)
-const setModel = () => model('issuanceTokens', IssuanceTokenSchema)
+);
+const setModel = () => model("issuanceTokens", IssuanceTokenSchema);
 
-if (!models.issuanceTokens) setModel()
+if (!models.issuanceTokens) setModel();
 
-const issuanceTokens = models.issuanceTokens as ReturnType<typeof setModel>
+const issuanceTokens = models.issuanceTokens as ReturnType<typeof setModel>;
 
-export default issuanceTokens
+export default issuanceTokens;

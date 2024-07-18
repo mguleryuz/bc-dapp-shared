@@ -1,6 +1,6 @@
-import { model, models, Schema } from 'mongoose'
-import { CacheBase, ECacheType } from '../types'
-import { EventCacheSchema } from '../schemas/EventCache'
+import { model, models, Schema } from "mongoose";
+import { type CacheBase, ECacheType } from "../types";
+import { EventCacheSchema } from "../schemas/EventCache";
 
 // Define the base schema
 const CacheBaseSchema = new Schema<CacheBase>(
@@ -15,21 +15,21 @@ const CacheBaseSchema = new Schema<CacheBase>(
       default: true,
     },
   },
-  { timestamps: true, discriminatorKey: 'type' }
-)
+  { timestamps: true, discriminatorKey: "type" }
+);
 
 const setModels = () => {
-  const Base = model('cache', CacheBaseSchema)
+  const Base = model("cache", CacheBaseSchema);
 
   return {
     [ECacheType.EVENT]: Base.discriminator(ECacheType.EVENT, EventCacheSchema),
-  }
-}
+  };
+};
 
-if (!models.cache) setModels()
+if (!models.cache) setModels();
 
 const cachedModels = {
   [ECacheType.EVENT]: models.cache.discriminators![ECacheType.EVENT],
-} as ReturnType<typeof setModels>
+} as ReturnType<typeof setModels>;
 
-export default cachedModels
+export default cachedModels;

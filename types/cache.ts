@@ -1,21 +1,21 @@
-import { EventData } from './api'
+import { type EventData } from "./api";
 
 export enum ECacheType {
-  EVENT = 'EVENT',
+  EVENT = "EVENT",
 }
 
-export type CacheType = keyof typeof ECacheType
+export type CacheType = keyof typeof ECacheType;
 
 export interface CacheBase {
-  type: CacheType
-  idle?: boolean
-  createdAt: Date
-  updatedAt: Date
+  type: CacheType;
+  idle?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface EventCache extends CacheBase {
-  type: 'EVENT'
-  data: EventData
+  type: "EVENT";
+  data: EventData;
 }
 
 // export interface TokenBalancesCache extends Omit<CacheBase, 'type'> {
