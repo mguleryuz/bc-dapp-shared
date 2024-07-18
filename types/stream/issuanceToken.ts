@@ -7,11 +7,11 @@ import type {
 export type IssuanceTokenStramEventBase =
   | {
       type: EEventType.ISSUANCE_TOKEN_UPDATE;
-      payload: IssuanceTokenResponse;
+      data: IssuanceTokenResponse;
     }
   | {
       type: EEventType.ISSUANCE_TOKEN_INSERT;
-      payload: PreInitilizeIssuanceTokenResponse;
+      data: PreInitilizeIssuanceTokenResponse;
     };
 
 export type IssuanceTokenStramEvent<T extends EEventType = EEventType> =
