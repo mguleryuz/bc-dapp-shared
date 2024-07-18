@@ -1,5 +1,5 @@
 import { model, models, Schema } from 'mongoose'
-import { CacheBase, ECacheType } from '@/lib/types'
+import { CacheBase, ECacheType } from '../types'
 import { EventCacheSchema } from '../schemas/EventCache'
 
 // Define the base schema
