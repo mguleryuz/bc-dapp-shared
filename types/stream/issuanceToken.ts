@@ -17,4 +17,4 @@ export type IssuanceTokenStramEventBase =
 export type IssuanceTokenStramEvent<T extends EventType = EventType> = Extract<
   IssuanceTokenStramEventBase,
   { type: T }
->["data"];
+>;

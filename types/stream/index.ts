@@ -4,7 +4,7 @@ export * from "./issuanceToken";
 
 export type SSEMessage<T extends EventType = EventType> = {
   data: IssuanceTokenStramEvent<T>;
-  event?: T;
+  event: "message";
   id?: string;
   retry?: number;
 };
