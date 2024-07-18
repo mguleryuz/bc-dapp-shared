@@ -1,10 +1,10 @@
-import type { EventType } from "../api";
-import type { IssuanceTokenStramEvent } from "./issuanceToken";
-export * from "./issuanceToken";
+import type { EventType } from '../api'
+import type { IssuanceTokenStramEvent } from './issuanceToken'
+export * from './issuanceToken'
 
-export type SSEMessage<T extends EventType = EventType> = {
-  data: IssuanceTokenStramEvent<T>;
-  event: "message";
-  id?: string;
-  retry?: number;
-};
+// NOTE:
+// event: 'message'
+// id?: string
+// retry?: number
+export type SSEMessageData<T extends EventType = EventType> =
+  IssuanceTokenStramEvent<T>
