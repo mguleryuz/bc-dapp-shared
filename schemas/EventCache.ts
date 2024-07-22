@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
-import { EEventType, type EventCache } from "../types";
+import { Schema } from 'mongoose'
+import { EEventType, type EventCache } from '../types'
 
 export const EventCacheSchema = new Schema<EventCache>({
   data: {
@@ -14,4 +14,4 @@ export const EventCacheSchema = new Schema<EventCache>({
     },
     _id: false,
   },
-});
+})

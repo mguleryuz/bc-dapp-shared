@@ -1,6 +1,6 @@
-import { Schema, model, models } from "mongoose";
-import { type User, EUserRole } from "../types";
-import { ApiSecretSchema } from "../schemas/ApiSecret";
+import { Schema, model, models } from 'mongoose'
+import { type User, EUserRole } from '../types'
+import { ApiSecretSchema } from '../schemas/ApiSecret'
 
 const UserSchema = new Schema<User>(
   {
@@ -9,7 +9,7 @@ const UserSchema = new Schema<User>(
       required: true,
       immutable: true,
       default: function () {
-        return (this as any)._id.toString();
+        return (this as any)._id.toString()
       },
     },
     address: {
@@ -19,7 +19,7 @@ const UserSchema = new Schema<User>(
     },
     role: {
       type: String,
-      default: "USER",
+      default: 'USER',
       enum: EUserRole,
     },
     email: {
@@ -36,12 +36,12 @@ const UserSchema = new Schema<User>(
     },
   },
   { timestamps: true }
-);
+)
 
-const setModel = () => model("users", UserSchema);
+const setModel = () => model('users', UserSchema)
 
-if (!models.users) setModel();
+if (!models.users) setModel()
 
-const users = models.users as ReturnType<typeof setModel>;
+const users = models.users as ReturnType<typeof setModel>
 
-export default users;
+export default users

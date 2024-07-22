@@ -1,9 +1,9 @@
-import getTotalSupply from "./getTotalSupply";
-import getMarketCap from "./getMarketCap";
+import getTotalSupply from './getTotalSupply'
+import getMarketCap from './getMarketCap'
 // import getPrice from './getPrice'
-import issuanceToken from "..";
-import { type Hex } from "viem";
-import { type SetMarketDataRequest } from "../setMarketData";
+import issuanceToken from '..'
+import { type Hex } from 'viem'
+import { type SetMarketDataRequest } from '../setMarketData'
 
 export default async function (params: SetMarketDataRequest) {
   const price = await issuanceToken.graph.getPrice(
@@ -18,13 +18,13 @@ export default async function (params: SetMarketDataRequest) {
       issuanceTokenDecimals: params.decimals,
       issuanceTokenAddress: params.address,
     }),
-    marketCap = getMarketCap({ price, totalSupply });
+    marketCap = getMarketCap({ price, totalSupply })
 
   const marketData = {
     price,
     totalSupply,
     marketCap,
-  };
+  }
 
-  return marketData;
+  return marketData
 }

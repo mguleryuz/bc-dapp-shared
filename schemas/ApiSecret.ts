@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
-import { type ApiSecret } from "../types";
+import { Schema } from 'mongoose'
+import { type ApiSecret } from '../types'
 
 export const ApiSecretSchema = new Schema<ApiSecret>(
   {
@@ -21,4 +21,4 @@ export const ApiSecretSchema = new Schema<ApiSecret>(
     _id: false,
     timestamps: true,
   }
-);
+)
