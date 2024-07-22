@@ -1,7 +1,13 @@
 import { IssuanceTokenModel } from '../../models'
 import issuanceToken, { getTokenQuery } from '.'
 
-export default async function ({ address }: { address: string }) {
+export default async function ({
+  address,
+  latestTransactionId: latestTransactionIdParam,
+}: {
+  address: string
+  latestTransactionId?: string
+}) {
   // Retrieve the previous token for the address
   let prevToken = (
     await IssuanceTokenModel.findOne(
@@ -14,9 +20,9 @@ export default async function ({ address }: { address: string }) {
   if (!prevToken?.fundingManagerAddress) throw new Error('Token not found')
 
   // Retrieve the latest transaction ID
-  const latestTransactionId = await issuanceToken.graph.getLatestSwapId(
-    prevToken.fundingManagerAddress
-  )
+  const latestTransactionId =
+    latestTransactionIdParam ??
+    (await issuanceToken.graph.getLatestSwapId(prevToken.fundingManagerAddress))
   // Define previous transaction ID
   const prevTransactionId = prevToken.latestTransactionId
 
