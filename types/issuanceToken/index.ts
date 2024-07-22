@@ -1,5 +1,5 @@
 import type { Simplify } from 'type-fest'
-import type { PaginationResult, PrunedBlob } from '.'
+import type { PaginationResult, PrunedBlob } from '..'
 
 export type IssuanceTokenMarketCap = {
   usd: string
@@ -67,10 +67,4 @@ export type IsuanceTokensResponse = {
   pagination: PaginationResult
 }
 
-export type SetMarketDataRequest = {
-  chainId: number
-  decimals: number
-  orchestratorAddress: string
-  address?: string
-  fundingManagerAddress?: string
-}
+export * from './actions'
