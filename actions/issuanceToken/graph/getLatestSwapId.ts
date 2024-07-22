@@ -1,7 +1,7 @@
-import request, { gql } from 'graphql-request'
-import { Swap, SwapsResponse } from '../../../types'
-import { queryURL } from '.'
-import utils from '../../../utils'
+import request, { gql } from "graphql-request";
+import type { Swap, SwapsResponse } from "../../../types";
+import { queryURL } from ".";
+import utils from "../../../utils";
 
 export default async function (fundingManagerAddress: string) {
   try {
@@ -14,19 +14,19 @@ export default async function (fundingManagerAddress: string) {
             },
           },
           order_by: {
-            blockTimestamp: 'desc',
+            blockTimestamp: "desc",
           },
           limit: 1,
         })} {
           id
         }
       }
-    `
-    const response = <SwapsResponse>await request(queryURL, document)
+    `;
+    const response = <SwapsResponse>await request(queryURL, document);
 
-    const id = response.Swap[0]?.id
-    return id
+    const id = response.Swap[0]?.id;
+    return id;
   } catch (error) {
-    return undefined
+    return undefined;
   }
 }
