@@ -24,6 +24,7 @@ export default async function (
     const document = gql`{
     Swap${utils.graph.formatParams(params)} {
       ${utils.graph.selectGraphQLFields(fields)}
+      }
     }`
     const response = <SwapsResponse>await request(queryURL, document)
 
