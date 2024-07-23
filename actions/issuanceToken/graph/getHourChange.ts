@@ -29,7 +29,7 @@ export default async function getHourChange(
 
   // Process the data to calculate the change
   const swaps = data.Swap
-  if (swaps.length === 0) return 0
+  if (swaps.length === 0) return '0.00'
 
   const initialValue = Number(swaps[0].priceInCol)
   const latestValue = Number(swaps[swaps.length - 1].priceInCol)
