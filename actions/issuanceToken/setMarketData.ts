@@ -16,7 +16,7 @@ export default async function (params: SetMarketDataRequest) {
 
   const newToken = await IssuanceTokenModel.findOneAndUpdate(
     getTokenQuery(address),
-    { $set: { ...marketData, fresh: true } },
+    { $set: { ...marketData, fresh: true, isPending: false } },
     {
       new: true,
     }

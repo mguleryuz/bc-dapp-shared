@@ -11,11 +11,19 @@ export type IssuanceTokenPrice = {
   collateral: string
 }
 
+export type IssuanceTokenPriceChange = {
+  oneHour: string
+  fourHour: string
+  twentyFourHour: string
+}
+
 export type IssuanceTokenMarketData = {
+  isPending: boolean
   fresh: boolean
   totalSupply: string
   marketCap: IssuanceTokenMarketCap
   price: IssuanceTokenPrice
+  priceChange: IssuanceTokenPriceChange
   latestTransactionId?: string
 }
 

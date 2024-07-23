@@ -1,7 +1,6 @@
 import type { SwapFields, SwapRequest, SwapsResponse } from '../../../types'
-import { gql, request } from 'graphql-request'
-import { queryURL } from '.'
-import utils from '../../../utils'
+import { request } from 'graphql-request'
+import { getDocument, queryURL } from '.'
 
 export default async function (
   params?: SwapRequest,
@@ -21,11 +20,11 @@ export default async function (
   ]
 ): Promise<SwapsResponse> {
   try {
-    const document = gql`{
-    Swap${utils.graph.formatParams(params)} {
-      ${utils.graph.selectGraphQLFields(fields)}
-      }
-    }`
+    const document = getDocument({
+      name: 'Swap',
+      params,
+      fields,
+    })
     const response = <SwapsResponse>await request(queryURL, document)
 
     return response

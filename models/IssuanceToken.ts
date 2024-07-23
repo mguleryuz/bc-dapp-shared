@@ -75,6 +75,11 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
       default: false,
     },
 
+    isPending: {
+      type: Boolean,
+      default: false,
+    },
+
     latestTransactionId: {
       type: String,
     },
@@ -98,6 +103,19 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
         type: String,
       },
       collateral: {
+        type: String,
+      },
+      _id: false,
+    },
+
+    priceChange: {
+      oneHour: {
+        type: String,
+      },
+      fourHour: {
+        type: String,
+      },
+      twentyFourHour: {
         type: String,
       },
       _id: false,

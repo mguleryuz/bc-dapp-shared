@@ -4,6 +4,7 @@ import getMarketCap from './getMarketCap'
 import issuanceToken from '..'
 import { type Hex } from 'viem'
 import { type SetMarketDataRequest } from '../setMarketData'
+import getHourChange from '../graph/getHourChange'
 
 export default async function (params: SetMarketDataRequest) {
   const price = await issuanceToken.graph.getPrice(
@@ -18,12 +19,18 @@ export default async function (params: SetMarketDataRequest) {
       issuanceTokenDecimals: params.decimals,
       issuanceTokenAddress: params.address,
     }),
-    marketCap = getMarketCap({ price, totalSupply })
+    marketCap = getMarketCap({ price, totalSupply }),
+    priceChange = {
+      oneHour: await getHourChange(params.fundingManagerAddress!, 1),
+      fourHour: await getHourChange(params.fundingManagerAddress!, 4),
+      twentyFourHour: await getHourChange(params.fundingManagerAddress!, 24),
+    }
 
   const marketData = {
     price,
     totalSupply,
     marketCap,
+    priceChange,
   }
 
   return marketData

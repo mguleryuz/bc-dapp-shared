@@ -9,7 +9,7 @@ export default async function ({
   latestTransactionId?: string
 }) {
   // Retrieve the previous token for the address
-  let prevToken = (
+  const prevToken = (
     await IssuanceTokenModel.findOne(
       getTokenQuery(address),
       'fresh fundingManagerAddress latestTransactionId'
