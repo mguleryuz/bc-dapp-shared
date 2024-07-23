@@ -1,10 +1,11 @@
 import { EEventType, type EventType } from '../api'
+import type { Swap } from '../graph'
 import type {
   IssuanceTokenResponse,
   PreInitilizeIssuanceTokenResponse,
 } from '../issuanceToken'
 
-export type IssuanceTokenStramEventBase =
+export type IssuanceTokenStreamEventBase =
   | {
       type: EEventType.ISSUANCE_TOKEN_UPDATE
       data: IssuanceTokenResponse
@@ -13,8 +14,15 @@ export type IssuanceTokenStramEventBase =
       type: EEventType.ISSUANCE_TOKEN_INSERT
       data: PreInitilizeIssuanceTokenResponse
     }
+  | {
+      type: EEventType.ISSUANCE_TOKEN_SWAP
+      data: {
+        token: IssuanceTokenResponse
+        swap: Swap
+      }
+    }
 
-export type IssuanceTokenStramEvent<T extends EventType = EventType> = Extract<
-  IssuanceTokenStramEventBase,
+export type IssuanceTokenStreamEvent<T extends EventType = EventType> = Extract<
+  IssuanceTokenStreamEventBase,
   { type: T }
 >

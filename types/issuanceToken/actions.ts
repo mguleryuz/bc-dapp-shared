@@ -13,3 +13,8 @@ export type GetAllIssuanceTokensParams = {
   limit?: number
   sortBy?: SortBy
 }
+
+export type GetIssuanceTokenParams = {
+  address: string | `0x${string}`
+  latestTransactionId?: string
+}

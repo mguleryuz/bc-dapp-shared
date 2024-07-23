@@ -19,6 +19,8 @@ export type Swap = {
   recipient: Hex
 }
 
+export type SwapFields = Array<keyof Swap>
+
 export type SwapRequest = GraphQLRequestParams<Swap>
 
 export type SwapsResponse = { Swap: Swap[] }

@@ -1,5 +1,5 @@
 import type { EventType } from '../api'
-import type { IssuanceTokenStramEvent } from './issuanceToken'
+import type { IssuanceTokenStreamEvent } from './issuanceToken'
 export * from './issuanceToken'
 
 // NOTE:
@@ -7,4 +7,4 @@ export * from './issuanceToken'
 // id?: string
 // retry?: number
 export type SSEMessageData<T extends EventType = EventType> =
-  IssuanceTokenStramEvent<T>
+  IssuanceTokenStreamEvent<T>

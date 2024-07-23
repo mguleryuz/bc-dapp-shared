@@ -1,10 +1,10 @@
 import { IssuanceTokenModel } from '../../models'
 import issuanceToken, { getTokenQuery } from '.'
+import type { GetIssuanceTokenParams } from '../../types'
 
-export default async function (
-  address: `0x${string}`,
-  latestTransactionId?: string
-) {
+export default async function (params: GetIssuanceTokenParams) {
+  const { address, latestTransactionId } = params
+
   await issuanceToken.checkAndSetFresh({ address, latestTransactionId })
 
   const token = await IssuanceTokenModel.findOne(getTokenQuery(address))

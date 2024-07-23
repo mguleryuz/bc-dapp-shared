@@ -32,7 +32,7 @@ export default async function (
 
   const pruned = await Promise.all(
     orchestratorAddresses.map(async ({ orchestratorAddress }) => {
-      return await issuanceToken.get(orchestratorAddress)
+      return await issuanceToken.get({ address: orchestratorAddress })
     })
   )
 

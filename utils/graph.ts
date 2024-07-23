@@ -38,3 +38,9 @@ export const formatParams = <T extends object>(
 
   return `(${parts.join(', ')})`
 }
+
+export function selectGraphQLFields<T extends object>(
+  fields: Array<keyof T>
+): string {
+  return fields.join('\n')
+}
