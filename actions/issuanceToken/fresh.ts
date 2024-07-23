@@ -1,7 +1,33 @@
-import { IssuanceTokenModel } from '../../models'
 import issuanceToken, { getTokenQuery } from '.'
+import { IssuanceTokenModel } from '../../models'
 
-export default async function ({
+async function set({
+  address,
+  fresh,
+  latestTransactionId,
+}: {
+  address: string
+  fresh: boolean
+  latestTransactionId?: string
+}) {
+  await IssuanceTokenModel.updateOne(getTokenQuery(address), {
+    // if latestTransactionId is provided, set it else just set fresh
+    $set: latestTransactionId ? { fresh, latestTransactionId } : { fresh },
+  })
+
+  return fresh
+}
+
+async function get({ address }: { address: string }) {
+  const freshExists = await IssuanceTokenModel.exists({
+    ...getTokenQuery(address),
+    fresh: true,
+  })
+
+  return !!freshExists
+}
+
+async function checkAndSet({
   address,
   latestTransactionId: latestTransactionIdParam,
 }: {
@@ -34,11 +60,17 @@ export default async function ({
 
   // If not fresh, update the token's state
   if (!fresh)
-    issuanceToken.setFresh({
+    set({
       address,
       fresh,
       latestTransactionId,
     })
 
   return fresh
+}
+
+export default {
+  set,
+  get,
+  checkAndSet,
 }

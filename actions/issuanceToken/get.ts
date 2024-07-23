@@ -5,7 +5,9 @@ import type { GetIssuanceTokenParams } from '../../types'
 export default async function (params: GetIssuanceTokenParams) {
   const { address, latestTransactionId } = params
 
-  await issuanceToken.checkAndSetFresh({ address, latestTransactionId })
+  await issuanceToken.pending.waitUntilNot({ address })
+
+  await issuanceToken.fresh.checkAndSet({ address, latestTransactionId })
 
   const token = await IssuanceTokenModel.findOne(getTokenQuery(address))
 

@@ -1,9 +1,7 @@
-import { request } from 'graphql-request'
-import { getDocument, queryURL } from '.'
-import type { Swap, SwapsResponse } from '../../../types'
+import getSwaps from './getSwaps'
 
 // Function to get the timestamp for one hour ago
-const getTimeStamp = (hour: 24 | 4 | 1) => {
+const getTimeStamp = (hour: number) => {
   const now = new Date()
   // Convert the timestamp to seconds
   return Math.floor((now.getTime() - hour * 60 * 60 * 1000) / 1000)
@@ -12,25 +10,22 @@ const getTimeStamp = (hour: 24 | 4 | 1) => {
 // Function to fetch the data and calculate the change
 export default async function getHourChange(
   fundingManagerAddress: string,
-  hour: 24 | 4 | 1
+  hour: number
 ) {
   const timestampt = getTimeStamp(hour)
 
-  const document = getDocument<Swap>({
-    name: 'Swap',
-    params: {
+  const data = await getSwaps(
+    {
       where: {
         bondingCurve_id: {
           _eq: fundingManagerAddress,
         },
         blockTimestamp: { _gte: timestampt },
       },
+      order_by: { blockTimestamp: 'asc' }, // Ensure swaps are ordered by timestamp
     },
-    fields: ['priceInCol', 'blockTimestamp'],
-  })
-
-  // Fetch the swaps from the last hour
-  const data = <SwapsResponse>await request(queryURL, document)
+    ['priceInCol']
+  )
 
   // Process the data to calculate the change
   const swaps = data.Swap

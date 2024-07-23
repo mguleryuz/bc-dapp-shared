@@ -18,7 +18,7 @@ export type IssuanceTokenPriceChange = {
 }
 
 export type IssuanceTokenMarketData = {
-  isPending: boolean
+  pending: boolean
   fresh: boolean
   totalSupply: string
   marketCap: IssuanceTokenMarketCap

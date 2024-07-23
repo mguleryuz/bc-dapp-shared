@@ -75,7 +75,7 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
       default: false,
     },
 
-    isPending: {
+    pending: {
       type: Boolean,
       default: false,
     },

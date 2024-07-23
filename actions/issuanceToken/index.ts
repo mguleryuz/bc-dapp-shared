@@ -4,12 +4,11 @@ import get from './get'
 import getAll from './getAll'
 import setAddress from './setAddress'
 import getAllCount from './getAllCount'
-import checkAndSetFresh from './checkAndSetFresh'
 import setMarketData from './setMarketData'
-import getIsFresh from './getIsFresh'
 import getMarketData from './getMarketData'
-import setFresh from './setFresh'
 import getAllAddresses from './getAllAddresses'
+import fresh from './fresh'
+import pending from './pending'
 
 export const getTokenQuery = (address: string) => ({
   $or: [
@@ -20,17 +19,16 @@ export const getTokenQuery = (address: string) => ({
 })
 
 export default {
+  fresh,
   getTokenQuery,
   get,
   setAddress,
   getAll,
   getAllCount,
-  checkAndSetFresh,
-  setFresh,
   setMarketData,
-  getIsFresh,
   getMarketData,
   getAllAddresses,
+  pending,
   graph,
   ...restGraph,
 }
