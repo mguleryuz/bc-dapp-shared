@@ -1,7 +1,7 @@
 import getPrice from './getPrice'
 import getSwaps from './getSwaps'
 import getLatestSwapId from './getLatestSwapId'
-import { GraphQLRequestParams } from '../../../types'
+import type { GraphQLRequestParams } from '../../../types'
 import { gql } from 'graphql-request'
 import utils from '../../../utils'
 import getHourChange from './getHourChange'
