@@ -1,17 +1,10 @@
 import { IssuanceTokenModel } from '../../models'
 import issuanceToken, { getTokenQuery } from '.'
+import type { SetMarketDataParams } from '../../types'
 
-export type SetMarketDataRequest = {
-  chainId: number
-  decimals: number
-  orchestratorAddress: string
-  address?: string
-  fundingManagerAddress?: string
-}
-
-export default async function (params: SetMarketDataRequest) {
+export default async function (params: SetMarketDataParams) {
   // this has to be orchestrator address because initially there is no other address
-  const address = params.orchestratorAddress
+  const address = params.token.orchestratorAddress
 
   await issuanceToken.status.set({ address, status: 'PENDING' })
 

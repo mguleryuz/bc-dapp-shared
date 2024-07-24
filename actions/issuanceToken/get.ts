@@ -3,11 +3,14 @@ import issuanceToken, { getTokenQuery } from '.'
 import type { GetIssuanceTokenParams } from '../../types'
 
 export default async function (params: GetIssuanceTokenParams) {
-  const { address, latestTransactionId } = params
+  const { address, swap } = params
 
   await issuanceToken.status.waitUntilNotPending({ address })
 
-  await issuanceToken.status.checkAndSet({ address, latestTransactionId })
+  await issuanceToken.status.checkAndSet({
+    address,
+    latestTransactionId: swap?.id,
+  })
 
   const token = await IssuanceTokenModel.findOne(getTokenQuery(address))
 
@@ -19,11 +22,7 @@ export default async function (params: GetIssuanceTokenParams) {
   // if not fresh or not found, set market data
   if (pruned?.status === 'STALE')
     return await issuanceToken.setMarketData({
-      chainId: pruned.chainId,
-      orchestratorAddress: pruned.orchestratorAddress,
-      address: pruned.address,
-      decimals: pruned.decimals,
-      fundingManagerAddress: pruned.fundingManagerAddress,
+      token: pruned,
     })
 
   return pruned

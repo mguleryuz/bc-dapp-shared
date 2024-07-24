@@ -1,4 +1,4 @@
-import getPrice from './getPrice'
+import getCollateralPrice from './getCollateralPrice'
 import getSwaps from './getSwaps'
 import getLatestSwapId from './getLatestSwapId'
 import type { GraphQLRequestParams } from '../../../types'
@@ -7,7 +7,7 @@ import utils from '../../../utils'
 import getHourChange from './getHourChange'
 
 export default {
-  getPrice,
+  getCollateralPrice,
   getSwaps,
   getLatestSwapId,
   getHourChange,

@@ -1,30 +1,23 @@
-import request, { gql } from 'graphql-request'
-import type { Swap, SwapsResponse } from '../../../types'
-import { queryURL } from '.'
-import utils from '../../../utils'
+import issuanceToken from '..'
 
 export default async function (fundingManagerAddress: string) {
   try {
-    const document = gql`
+    const swaps = await issuanceToken.graph.getSwaps(
       {
-        Swap${utils.graph.formatParams<Swap>({
-          where: {
-            bondingCurve_id: {
-              _eq: fundingManagerAddress,
-            },
+        where: {
+          bondingCurve_id: {
+            _eq: fundingManagerAddress,
           },
-          order_by: {
-            blockTimestamp: 'desc',
-          },
-          limit: 1,
-        })} {
-          id
-        }
-      }
-    `
-    const response = <SwapsResponse>await request(queryURL, document)
+        },
+        order_by: {
+          blockTimestamp: 'desc',
+        },
+        limit: 1,
+      },
+      ['id']
+    )
 
-    const id = response.Swap[0]?.id
+    const id = swaps.Swap[0]?.id
     return id
   } catch (error) {
     return undefined

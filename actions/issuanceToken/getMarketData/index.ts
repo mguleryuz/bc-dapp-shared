@@ -1,29 +1,26 @@
 import getTotalSupply from './getTotalSupply'
 import getMarketCap from './getMarketCap'
-// import getPrice from './getPrice'
-import issuanceToken from '..'
-import { type Hex } from 'viem'
-import { type SetMarketDataRequest } from '../setMarketData'
+import getPrice from './getPrice'
 import getHourChange from '../graph/getHourChange'
+import type { SetMarketDataParams } from '../../../types'
 
-export default async function (params: SetMarketDataRequest) {
-  const price = await issuanceToken.graph.getPrice(
-      params.fundingManagerAddress as Hex
-    ),
-    // const price = await getPrice(
-    //     token.chainId,
-    //     token.fundingManagerAddress as Hex
-    //   ),
+export default async function (params: SetMarketDataParams) {
+  const { address, chainId, decimals, fundingManagerAddress } = params.token
+  const price = await getPrice({
+      type: 'graph',
+      fundingManagerAddress,
+      swap: params.swap,
+    }),
     totalSupply = await getTotalSupply({
-      chainId: params.chainId,
-      issuanceTokenDecimals: params.decimals,
-      issuanceTokenAddress: params.address,
+      chainId,
+      issuanceTokenDecimals: decimals,
+      issuanceTokenAddress: address,
     }),
     marketCap = getMarketCap({ price, totalSupply }),
     priceChange = {
-      oneHour: await getHourChange(params.fundingManagerAddress!, 1),
-      fourHour: await getHourChange(params.fundingManagerAddress!, 4),
-      twentyFourHour: await getHourChange(params.fundingManagerAddress!, 24),
+      oneHour: await getHourChange(fundingManagerAddress!, 1),
+      fourHour: await getHourChange(fundingManagerAddress!, 4),
+      twentyFourHour: await getHourChange(fundingManagerAddress!, 24),
     }
 
   const marketData = {

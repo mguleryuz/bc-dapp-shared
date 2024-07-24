@@ -1,3 +1,6 @@
+import type { GetIssuanceTokenPriceInCollateral, IssuanceToken } from '..'
+import type { Swap } from '../../graph'
+
 export type SortBy =
   | undefined
   | `${'price.collateral' | 'price.usd' | 'totalSupply' | 'marketCap.collateral' | 'marketCap.usd'}:${'asc' | 'desc'}`
@@ -16,5 +19,25 @@ export type GetAllIssuanceTokensParams = {
 
 export type GetIssuanceTokenParams = {
   address: string | `0x${string}`
-  latestTransactionId?: string
+  swap?: Swap
 }
+
+export type SetMarketDataParams = {
+  token: IssuanceToken
+  swap?: Swap
+}
+
+export type GetIssuanceTokenPriceParams = (
+  | {
+      type: 'rpc'
+      chainId: number
+      orchestratorAddress: string
+    }
+  | ({
+      type: 'graph'
+    } & GetIssuanceTokenPriceInCollateral)
+) & {
+  swap?: Swap
+}
+
+export * from './graph'
