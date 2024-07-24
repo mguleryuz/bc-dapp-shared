@@ -7,8 +7,7 @@ import getAllCount from './getAllCount'
 import setMarketData from './setMarketData'
 import getMarketData from './getMarketData'
 import getAllAddresses from './getAllAddresses'
-import fresh from './fresh'
-import pending from './pending'
+import status from './status'
 
 export const getTokenQuery = (address: string) => ({
   $or: [
@@ -19,7 +18,7 @@ export const getTokenQuery = (address: string) => ({
 })
 
 export default {
-  fresh,
+  status,
   getTokenQuery,
   get,
   setAddress,
@@ -28,7 +27,6 @@ export default {
   setMarketData,
   getMarketData,
   getAllAddresses,
-  pending,
   graph,
   ...restGraph,
 }

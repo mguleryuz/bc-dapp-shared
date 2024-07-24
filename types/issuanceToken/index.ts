@@ -17,13 +17,20 @@ export type IssuanceTokenPriceChange = {
   twentyFourHour: string
 }
 
+export enum EIssuanceTokenStatus {
+  STALE = 'STALE',
+  FRESH = 'FRESH',
+  PENDING = 'PENDING',
+}
+
+export type IssuanceTokenStatus = keyof typeof EIssuanceTokenStatus
+
 export type IssuanceTokenMarketData = {
-  pending: boolean
-  fresh: boolean
   totalSupply: string
   marketCap: IssuanceTokenMarketCap
   price: IssuanceTokenPrice
   priceChange: IssuanceTokenPriceChange
+  status: EIssuanceTokenStatus
   latestTransactionId?: string
 }
 

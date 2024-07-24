@@ -1,5 +1,5 @@
 import { Schema, model, models } from 'mongoose'
-import { type IssuanceToken } from '../types'
+import { EIssuanceTokenStatus, type IssuanceToken } from '../types'
 
 const IssuanceTokenSchema = new Schema<IssuanceToken>(
   {
@@ -70,14 +70,10 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
       required: true,
     },
 
-    fresh: {
-      type: Boolean,
-      default: false,
-    },
-
-    pending: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
+      enum: EIssuanceTokenStatus,
+      default: EIssuanceTokenStatus.STALE,
     },
 
     latestTransactionId: {

@@ -13,13 +13,13 @@ export default async function (params: SetMarketDataRequest) {
   // this has to be orchestrator address because initially there is no other address
   const address = params.orchestratorAddress
 
-  await issuanceToken.pending.set({ address, pending: true })
+  await issuanceToken.status.set({ address, status: 'PENDING' })
 
   const marketData = await issuanceToken.getMarketData(params)
 
   const newToken = await IssuanceTokenModel.findOneAndUpdate(
     getTokenQuery(address),
-    { $set: { ...marketData, fresh: true, pending: false } },
+    { $set: { ...marketData, status: 'FRESH' } },
     {
       new: true,
     }
