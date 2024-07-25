@@ -1,6 +1,6 @@
 import issuanceToken, { getTokenQuery } from '.'
 import { IssuanceTokenModel } from '../../models'
-import type { IssuanceTokenStatus } from '../../types'
+import type { EIssuanceTokenStatus, IssuanceTokenStatus } from '../../types'
 
 async function set({
   address,
@@ -48,10 +48,7 @@ async function checkAndSet({
 }) {
   // Retrieve the previous token for the address
   const prevToken = (
-    await IssuanceTokenModel.findOne(
-      getTokenQuery(address),
-      'status fundingManagerAddress latestTransactionId'
-    )
+    await IssuanceTokenModel.findOne(getTokenQuery(address))
   )?.toObject()
 
   // If token not found, throw an error
@@ -69,16 +66,21 @@ async function checkAndSet({
   const hasSameTransactionId = prevTransactionId === latestTransactionId
 
   const fresh = !isNotInitialized && hasSameTransactionId
+  const status = (fresh ? 'FRESH' : 'STALE') as EIssuanceTokenStatus
 
   // If not fresh, update the token's state
   if (!fresh)
     set({
       address,
-      status: fresh ? 'FRESH' : 'STALE',
+      status,
       latestTransactionId,
     })
 
-  return fresh
+  const { _id, ...rest } = prevToken
+  const pruned = { ...rest, id: _id.toString() }
+  const newToken = { ...pruned, status, latestTransactionId }
+
+  return newToken
 }
 
 async function waitUntilNotPending({
