@@ -1,9 +1,20 @@
 import type { GetIssuanceTokenPriceInCollateral, IssuanceToken } from '..'
 import type { Swap } from '../../graph'
 
-export type SortBy =
-  | undefined
-  | `${'price.collateral' | 'price.usd' | 'totalSupply' | 'marketCap.collateral' | 'marketCap.usd'}:${'asc' | 'desc'}`
+export type SortByDirection = 'asc' | 'desc'
+
+export type SortByTimeBase = 'oneHour' | 'fourHour' | 'twentyFourHour'
+
+export type SortByNominator = 'collateral' | 'usd'
+
+export type SortByPreDirection =
+  | `volume.${SortByNominator}.${SortByTimeBase}`
+  | `price.${SortByNominator}`
+  | `totalSupply`
+  | `marketCap.${SortByNominator}`
+  | `priceChange.${SortByTimeBase}`
+
+export type SortBy = undefined | `${SortByPreDirection}:${SortByDirection}`
 
 export type SetIssuanceTokenAddressParams = {
   orchestratorAddress: string
