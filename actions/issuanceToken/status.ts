@@ -64,7 +64,7 @@ async function checkAndSet({
   const isStale = prevToken.status === 'STALE'
   const hasSameTransactionId = prevTransactionId === latestTransactionId
 
-  const fresh = !isStale && !hasSameTransactionId
+  const fresh = !isStale && hasSameTransactionId
   const status = (fresh ? 'FRESH' : 'STALE') as EIssuanceTokenStatus
 
   // If not fresh, update the token's state
