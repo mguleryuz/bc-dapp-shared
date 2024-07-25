@@ -1,4 +1,7 @@
-import getSwaps from './getSwaps'
+import type { IssuanceTokenNominatedMetric } from '@/lib/types'
+import getSwaps from '../getSwaps'
+import getPriceChange from './getPriceChange'
+import getVolume from './getVolume'
 
 // Function to get the timestamp for one hour ago
 const getTimeStamp = (hour: number) => {
@@ -11,7 +14,10 @@ const getTimeStamp = (hour: number) => {
 export default async function getHourChange(
   fundingManagerAddress: string,
   hour: number
-) {
+): Promise<{
+  priceChange: string
+  volume: IssuanceTokenNominatedMetric
+}> {
   const timestampt = getTimeStamp(hour)
 
   const data = await getSwaps(
@@ -24,16 +30,14 @@ export default async function getHourChange(
       },
       order_by: { blockTimestamp: 'asc' }, // Ensure swaps are ordered by timestamp
     },
-    ['priceInCol']
+    ['priceInCol', 'collateralAmount']
   )
 
-  // Process the data to calculate the change
-  const swaps = data.Swap
-  if (swaps.length === 0) return '0.00'
+  const priceChange = getPriceChange(data.Swap)
+  const volume = getVolume(data.Swap)
 
-  const initialValue = Number(swaps[0].priceInCol)
-  const latestValue = Number(swaps[swaps.length - 1].priceInCol)
-  const change = ((latestValue - initialValue) / initialValue) * 100
-
-  return String(change)
+  return {
+    priceChange,
+    volume,
+  }
 }

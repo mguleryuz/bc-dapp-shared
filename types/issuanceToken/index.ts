@@ -1,20 +1,26 @@
 import type { Simplify } from 'type-fest'
 import type { PaginationResult, PrunedBlob } from '..'
 
-export type IssuanceTokenMarketCap = {
-  usd: string
+export type IssuanceTokenNominatedMetric = {
   collateral: string
+  usd: string
 }
 
-export type IssuanceTokenPrice = {
-  usd: string
-  collateral: string
-}
+export type IssuanceTokenMarketCap = IssuanceTokenNominatedMetric
 
-export type IssuanceTokenPriceChange = {
+export type IssuanceTokenPrice = IssuanceTokenNominatedMetric
+
+export type IssuanceTokenTimeDataBase = {
   oneHour: string
   fourHour: string
   twentyFourHour: string
+}
+
+export type IssuanceTokenPriceChange = IssuanceTokenTimeDataBase
+
+export type IssuanceTokenVolume = {
+  collateral: IssuanceTokenTimeDataBase
+  usd: IssuanceTokenTimeDataBase
 }
 
 export enum EIssuanceTokenStatus {
@@ -30,6 +36,7 @@ export type IssuanceTokenMarketData = {
   marketCap: IssuanceTokenMarketCap
   price: IssuanceTokenPrice
   priceChange: IssuanceTokenPriceChange
+  volume: IssuanceTokenVolume
   status: EIssuanceTokenStatus
   latestTransactionId?: string
 }

@@ -1,7 +1,7 @@
 import getTotalSupply from './getTotalSupply'
 import getMarketCap from './getMarketCap'
 import getPrice from './getPrice'
-import getHourChange from '../graph/getHourChange'
+import getHourMetrics from '../graph/getHourMetrics'
 import type { SetMarketDataParams } from '../../../types'
 
 export default async function (params: SetMarketDataParams) {
@@ -17,10 +17,25 @@ export default async function (params: SetMarketDataParams) {
       issuanceTokenAddress: address,
     }),
     marketCap = getMarketCap({ price, totalSupply }),
+    oneHour = await getHourMetrics(fundingManagerAddress!, 1),
+    fourHour = await getHourMetrics(fundingManagerAddress!, 4),
+    twentyFourHour = await getHourMetrics(fundingManagerAddress!, 24),
     priceChange = {
-      oneHour: await getHourChange(fundingManagerAddress!, 1),
-      fourHour: await getHourChange(fundingManagerAddress!, 4),
-      twentyFourHour: await getHourChange(fundingManagerAddress!, 24),
+      oneHour: oneHour.priceChange,
+      fourHour: fourHour.priceChange,
+      twentyFourHour: twentyFourHour.priceChange,
+    },
+    volume = {
+      collateral: {
+        oneHour: oneHour.volume.collateral,
+        fourHour: fourHour.volume.collateral,
+        twentyFourHour: twentyFourHour.volume.collateral,
+      },
+      usd: {
+        oneHour: oneHour.volume.usd,
+        fourHour: fourHour.volume.usd,
+        twentyFourHour: twentyFourHour.volume.usd,
+      },
     }
 
   const marketData = {
@@ -28,6 +43,7 @@ export default async function (params: SetMarketDataParams) {
     totalSupply,
     marketCap,
     priceChange,
+    volume,
   }
 
   return marketData

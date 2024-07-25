@@ -1,5 +1,26 @@
 import { Schema, model, models } from 'mongoose'
-import { EIssuanceTokenStatus, type IssuanceToken } from '../types'
+import {
+  EIssuanceTokenStatus,
+  type IssuanceToken,
+  type IssuanceTokenTimeDataBase,
+} from '../types'
+
+const TimeDataSchema = new Schema<IssuanceTokenTimeDataBase>(
+  {
+    oneHour: {
+      type: String,
+    },
+    fourHour: {
+      type: String,
+    },
+    twentyFourHour: {
+      type: String,
+    },
+  },
+  {
+    _id: false,
+  }
+)
 
 const IssuanceTokenSchema = new Schema<IssuanceToken>(
   {
@@ -105,14 +126,17 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
     },
 
     priceChange: {
-      oneHour: {
-        type: String,
-      },
-      fourHour: {
-        type: String,
-      },
-      twentyFourHour: {
-        type: String,
+      type: TimeDataSchema,
+    },
+
+    volume: {
+      type: {
+        collateral: {
+          type: TimeDataSchema,
+        },
+        usd: {
+          type: TimeDataSchema,
+        },
       },
       _id: false,
     },

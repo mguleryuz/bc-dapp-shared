@@ -4,7 +4,7 @@ import getLatestSwapId from './getLatestSwapId'
 import type { GraphQLRequestParams } from '../../../types'
 import { gql } from 'graphql-request'
 import utils from '../../../utils'
-import getHourChange from './getHourChange'
+import getHourChange from './getHourMetrics'
 
 export default {
   getCollateralPrice,
