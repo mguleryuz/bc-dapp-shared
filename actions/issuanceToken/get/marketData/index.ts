@@ -1,10 +1,8 @@
 import getTotalSupply from './getTotalSupply'
 import getMarketCap from './getMarketCap'
 import getPrice from './getPrice'
-import issuanceToken from '../../../issuanceToken'
+import graph from '../../../issuanceToken/graph'
 import type { SetMarketDataParams } from '../../../../types'
-
-const graph = issuanceToken.graph
 
 export default async function (params: SetMarketDataParams) {
   const { address, chainId, decimals, fundingManagerAddress } = params.token
