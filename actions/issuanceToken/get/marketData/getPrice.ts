@@ -1,9 +1,9 @@
-import issuanceToken from '..'
+import issuanceToken from '../..'
 import type {
   GetIssuanceTokenPriceParams,
   IssuanceTokenPrice,
-} from '../../../types'
-import { getWorkflow } from '../../inverter'
+} from '../../../../types'
+import { getWorkflow } from '../../../inverter'
 
 // TODO: turn into getStatic Price after HATS fix
 export default async function getPrice(
@@ -28,7 +28,7 @@ export default async function getPrice(
             await workflow.fundingManager.read.calculatePurchaseReturn.run('1')!
           break
         case 'graph':
-          result.collateral = await issuanceToken.graph.getCollateralPrice({
+          result.collateral = await issuanceToken.graph.get.collateralPrice({
             fundingManagerAddress: params.fundingManagerAddress,
           })!
           break

@@ -1,7 +1,7 @@
-import issuanceToken from '.'
-import type { GetIssuanceTokenParams } from '../../types'
+import issuanceToken from '..'
+import type { GetIssuanceTokenParams } from '../../../types'
 
-export default async function (params: GetIssuanceTokenParams) {
+async function get(params: GetIssuanceTokenParams) {
   const { address, swap } = params
 
   await issuanceToken.status.waitUntilNotPending({ address })
@@ -13,9 +13,17 @@ export default async function (params: GetIssuanceTokenParams) {
 
   // if not fresh or not found, set market data
   if (token.status === 'STALE')
-    return await issuanceToken.setMarketData({
+    return await issuanceToken.set.marketData({
       token,
     })
 
   return token
 }
+
+import marketData from './marketData'
+import all from './all'
+
+export default Object.assign(get, {
+  marketData,
+  all,
+})

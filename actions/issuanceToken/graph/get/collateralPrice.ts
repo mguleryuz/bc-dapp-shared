@@ -1,11 +1,11 @@
-import type { GetIssuanceTokenPriceInCollateral } from '../../../types'
-import issuanceToken from '..'
+import type { GetIssuanceTokenPriceInCollateral } from '../../../../types'
+import issuanceToken from '../..'
 
 export default async function (
   params: GetIssuanceTokenPriceInCollateral
 ): Promise<string> {
   try {
-    const swaps = await issuanceToken.graph.getSwaps(
+    const swaps = await issuanceToken.graph.get.swaps(
       {
         where: {
           bondingCurve_id: {

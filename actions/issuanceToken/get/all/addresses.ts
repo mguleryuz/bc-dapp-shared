@@ -1,4 +1,4 @@
-import { IssuanceTokenModel } from '../../models'
+import { IssuanceTokenModel } from '../../../../models'
 
 export default async function () {
   const count = await IssuanceTokenModel.find({}, 'address')

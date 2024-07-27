@@ -1,5 +1,5 @@
-import type { IssuanceTokenNominatedMetric } from '@/lib/types'
-import getSwaps from '../getSwaps'
+import type { IssuanceTokenNominatedMetric } from '../../../../../types'
+import get from '..'
 import getPriceChange from './getPriceChange'
 import getVolume from './getVolume'
 
@@ -20,7 +20,7 @@ export default async function getHourChange(
 }> {
   const timestampt = getTimeStamp(hour)
 
-  const data = await getSwaps(
+  const data = await get.swaps(
     {
       where: {
         bondingCurve_id: {

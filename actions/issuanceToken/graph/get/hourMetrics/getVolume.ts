@@ -1,4 +1,4 @@
-import type { IssuanceTokenNominatedMetric } from '@/lib/types'
+import type { IssuanceTokenNominatedMetric } from '../../../../../types'
 
 export default function (
   swaps: { collateralAmount: string }[]

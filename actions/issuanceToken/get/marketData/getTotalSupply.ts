@@ -1,5 +1,5 @@
 import { type Hex, erc20Abi, formatUnits } from 'viem'
-import { getChainPublicClient } from '../../inverter'
+import { getChainPublicClient } from '../../../inverter'
 
 export default async function (params: {
   chainId: number

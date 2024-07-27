@@ -1,3 +1,4 @@
+import { gql } from 'graphql-request'
 import type { GraphQLRequestParams } from '../types'
 
 const formatOrderBy = <T extends object>(
@@ -43,4 +44,16 @@ export function selectGraphQLFields<T extends object>(
   fields: Array<keyof T>
 ): string {
   return fields.join('\n')
+}
+
+export const getDocument = <T extends object>(params: {
+  name: string
+  params?: GraphQLRequestParams<T>
+  fields: Array<keyof T>
+}) => {
+  return gql`{
+    ${params.name}${formatParams(params.params)} {
+      ${selectGraphQLFields(params.fields)}
+      }
+    }`
 }

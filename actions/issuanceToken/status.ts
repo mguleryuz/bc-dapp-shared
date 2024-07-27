@@ -57,7 +57,9 @@ async function checkAndSet({
   // Retrieve the latest transaction ID
   const latestTransactionId =
     latestTransactionIdParam ??
-    (await issuanceToken.graph.getLatestSwapId(prevToken.fundingManagerAddress))
+    (await issuanceToken.graph.get.latestSwapId(
+      prevToken.fundingManagerAddress
+    ))
   // Define previous transaction ID
   const prevTransactionId = prevToken.latestTransactionId
 

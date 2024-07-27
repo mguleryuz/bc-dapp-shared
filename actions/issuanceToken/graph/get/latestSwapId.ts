@@ -1,8 +1,8 @@
-import issuanceToken from '..'
+import get from '.'
 
 export default async function (fundingManagerAddress: string) {
   try {
-    const swaps = await issuanceToken.graph.getSwaps(
+    const swaps = await get.swaps(
       {
         where: {
           bondingCurve_id: {

@@ -1,6 +1,7 @@
-import type { SwapFields, SwapRequest, SwapsResponse } from '../../../types'
+import type { SwapFields, SwapRequest, SwapsResponse } from '../../../../types'
 import { request } from 'graphql-request'
-import { getDocument, queryURL } from '.'
+import { queryURL } from '..'
+import utils from '../../../../utils'
 
 export default async function (
   params?: SwapRequest,
@@ -20,7 +21,7 @@ export default async function (
   ]
 ): Promise<SwapsResponse> {
   try {
-    const document = getDocument({
+    const document = utils.graph.getDocument({
       name: 'Swap',
       params,
       fields,

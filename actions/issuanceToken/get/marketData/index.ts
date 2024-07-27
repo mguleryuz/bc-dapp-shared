@@ -1,8 +1,10 @@
 import getTotalSupply from './getTotalSupply'
 import getMarketCap from './getMarketCap'
 import getPrice from './getPrice'
-import getHourMetrics from '../graph/getHourMetrics'
-import type { SetMarketDataParams } from '../../../types'
+import issuanceToken from '../../../issuanceToken'
+import type { SetMarketDataParams } from '../../../../types'
+
+const graph = issuanceToken.graph
 
 export default async function (params: SetMarketDataParams) {
   const { address, chainId, decimals, fundingManagerAddress } = params.token
@@ -17,9 +19,9 @@ export default async function (params: SetMarketDataParams) {
       issuanceTokenAddress: address,
     }),
     marketCap = getMarketCap({ price, totalSupply }),
-    oneHour = await getHourMetrics(fundingManagerAddress!, 1),
-    fourHour = await getHourMetrics(fundingManagerAddress!, 4),
-    twentyFourHour = await getHourMetrics(fundingManagerAddress!, 24),
+    oneHour = await graph.get.hourMetrics(fundingManagerAddress!, 1),
+    fourHour = await graph.get.hourMetrics(fundingManagerAddress!, 4),
+    twentyFourHour = await graph.get.hourMetrics(fundingManagerAddress!, 24),
     priceChange = {
       oneHour: oneHour.priceChange,
       fourHour: fourHour.priceChange,

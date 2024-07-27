@@ -1,6 +1,6 @@
-import { IssuanceTokenModel } from '../../models'
-import issuanceToken, { getTokenQuery } from '.'
-import type { SetMarketDataParams } from '../../types'
+import { IssuanceTokenModel } from '../../../models'
+import issuanceToken, { getTokenQuery } from '..'
+import type { SetMarketDataParams } from '../../../types'
 
 export default async function (params: SetMarketDataParams) {
   // this has to be orchestrator address because initially there is no other address
@@ -8,7 +8,7 @@ export default async function (params: SetMarketDataParams) {
 
   await issuanceToken.status.set({ address, status: 'PENDING' })
 
-  const marketData = await issuanceToken.getMarketData(params)
+  const marketData = await issuanceToken.get.marketData(params)
 
   const newToken = await IssuanceTokenModel.findOneAndUpdate(
     getTokenQuery(address),

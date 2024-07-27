@@ -1,4 +1,7 @@
-import type { IssuanceTokenMarketCap, IssuanceTokenPrice } from '../../../types'
+import type {
+  IssuanceTokenMarketCap,
+  IssuanceTokenPrice,
+} from '../../../../types'
 
 export default function getMarketCap(params: {
   price: IssuanceTokenPrice

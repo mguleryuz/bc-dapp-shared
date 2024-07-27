@@ -1,5 +1,5 @@
-import { IssuanceTokenModel } from '../../models'
-import type { SetIssuanceTokenAddressParams } from '../../types'
+import { IssuanceTokenModel } from '../../../models'
+import type { SetIssuanceTokenAddressParams } from '../../../types'
 
 export default async function ({
   orchestratorAddress,

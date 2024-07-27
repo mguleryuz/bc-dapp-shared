@@ -1,9 +1,9 @@
-import { IssuanceTokenModel } from '../../models'
+import { IssuanceTokenModel } from '../../../../models'
 import type {
   GetAllIssuanceTokensParams,
   IsuanceTokensResponse,
-} from '../../types'
-import issuanceToken from '.'
+} from '../../../../types'
+import issuanceToken from '../..'
 
 export default async function (
   options?: GetAllIssuanceTokensParams
