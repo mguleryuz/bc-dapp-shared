@@ -51,6 +51,7 @@ export type IssuanceTokenBase = {
 
   symbol: string
   name: string
+  description: string
   decimals: number
 
   imageId: string
@@ -69,6 +70,19 @@ export type IssuanceToken = Simplify<
 export type InsertIssuanceTokenInsertParams = {
   blob: PrunedBlob
 } & Omit<IssuanceToken, 'imageId' | keyof IssuanceTokenMarketData>
+
+export type GetIssuanceTokenGptDetailsResponse = {
+  name: string
+  symbol: string
+  description: string
+  imageGenerationPrompt: string
+}
+
+export type InsertIssuanceTokenInsertGPTParams = Omit<
+  InsertIssuanceTokenInsertParams,
+  'blob'
+> &
+  Pick<GetIssuanceTokenGptDetailsResponse, 'imageGenerationPrompt'>
 
 export type IssuanceTokenResponse = IssuanceToken & {
   id: string

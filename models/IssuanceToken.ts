@@ -53,6 +53,11 @@ const IssuanceTokenSchema = new Schema<IssuanceToken>(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
+
     decimals: {
       type: Number,
       required: true,
