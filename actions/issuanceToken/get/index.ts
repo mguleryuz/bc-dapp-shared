@@ -12,10 +12,12 @@ async function get(params: GetIssuanceTokenParams) {
   })
 
   // if not fresh or not found, set market data
-  if (token.status === 'STALE')
-    return await issuanceToken.set.marketData({
+  if (token.status === 'STALE') {
+    const newToken = await issuanceToken.set.marketData({
       token,
     })
+    return newToken
+  }
 
   return token
 }

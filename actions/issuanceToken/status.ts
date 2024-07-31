@@ -86,7 +86,7 @@ async function checkAndSet({
 
 async function waitUntilNotPending({
   address,
-  timeout = 60_000,
+  timeout = 10_000,
   interval = 1000,
 }: {
   address: string
@@ -97,7 +97,10 @@ async function waitUntilNotPending({
   let isPending = !!(await get({ address, status: 'PENDING' }))
 
   while (isPending) {
-    if (Date.now() - start > timeout) break
+    if (Date.now() - start > timeout) {
+      await set({ address, status: 'STALE' })
+      break
+    }
 
     await new Promise((resolve) => setTimeout(resolve, interval))
     isPending = !!(await get({ address, status: 'PENDING' }))
