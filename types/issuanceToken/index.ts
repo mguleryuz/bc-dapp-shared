@@ -1,5 +1,5 @@
 import type { Simplify } from 'type-fest'
-import type { PaginationResult, PrunedBlob } from '..'
+import type { PaginationResult } from '..'
 
 export type IssuanceTokenNominatedMetric = {
   collateral: string
@@ -66,23 +66,6 @@ export type IssuanceTokenBase = {
 export type IssuanceToken = Simplify<
   IssuanceTokenBase & IssuanceTokenMarketData
 >
-
-export type InsertIssuanceTokenInsertParams = {
-  blob: PrunedBlob
-} & Omit<IssuanceToken, 'imageId' | keyof IssuanceTokenMarketData>
-
-export type GetIssuanceTokenGptDetailsResponse = {
-  name: string
-  symbol: string
-  description: string
-  imageGenerationPrompt: string
-}
-
-export type InsertIssuanceTokenInsertGPTParams = Omit<
-  InsertIssuanceTokenInsertParams,
-  'blob'
-> &
-  Pick<GetIssuanceTokenGptDetailsResponse, 'imageGenerationPrompt'>
 
 export type IssuanceTokenResponse = IssuanceToken & {
   id: string
