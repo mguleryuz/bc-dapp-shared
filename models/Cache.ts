@@ -1,10 +1,6 @@
 import { model, models, Schema } from 'mongoose'
-import {
-  type CacheBase,
-  ECacheType,
-  EventCache,
-  RateLimitCache,
-} from '../types'
+import { ECacheType } from '../types'
+import type { CacheBase, EventCache, RateLimitCache } from '../types'
 import { EventCacheSchema } from '../schemas/EventCache'
 import { RateLimitCacheSchema } from '../schemas/RateLimitCache'
 

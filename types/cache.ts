@@ -1,4 +1,4 @@
-import { RateLimitData, type EventData } from './api'
+import type { RateLimitData, EventData } from './api'
 
 export enum ECacheType {
   EVENT = 'EVENT',
