@@ -6,6 +6,14 @@ export type ApiSecret = {
   updatedAt: Date
 }
 
+export type RateLimitData = {
+  key: string
+  count: number
+  expiresAt: number
+  limit: number
+}
+
+// ==========EVENTS==========
 export enum EEventType {
   USER_CHANGE = 'USER_CHANGE',
   ISSUANCE_TOKEN_INSERT = 'ISSUANCE_TOKEN_INSERT',
@@ -20,6 +28,7 @@ export type EventData = {
   uid: string
 }
 
+// ==========RESPONSE WRAPPERS==========
 export type PaginationResult = {
   page: number
   limit: number

@@ -1,6 +1,12 @@
 import { model, models, Schema } from 'mongoose'
-import { type CacheBase, ECacheType } from '../types'
+import {
+  type CacheBase,
+  ECacheType,
+  EventCache,
+  RateLimitCache,
+} from '../types'
 import { EventCacheSchema } from '../schemas/EventCache'
+import { RateLimitCacheSchema } from '../schemas/RateLimitCache'
 
 // Define the base schema
 const CacheBaseSchema = new Schema<CacheBase>(
@@ -22,13 +28,21 @@ const setModels = () => {
   const Base = model('cache', CacheBaseSchema)
 
   return {
-    [ECacheType.EVENT]: Base.discriminator(ECacheType.EVENT, EventCacheSchema),
+    [ECacheType.RATE_LIMIT]: Base.discriminator<CacheBase & RateLimitCache>(
+      ECacheType.RATE_LIMIT,
+      RateLimitCacheSchema
+    ),
+    [ECacheType.EVENT]: Base.discriminator<CacheBase & EventCache>(
+      ECacheType.EVENT,
+      EventCacheSchema
+    ),
   }
 }
 
 if (!models.cache) setModels()
 
 const cachedModels = {
+  [ECacheType.RATE_LIMIT]: models.cache.discriminators![ECacheType.RATE_LIMIT],
   [ECacheType.EVENT]: models.cache.discriminators![ECacheType.EVENT],
 } as ReturnType<typeof setModels>
 

@@ -1,7 +1,8 @@
-import { type EventData } from './api'
+import { RateLimitData, type EventData } from './api'
 
 export enum ECacheType {
   EVENT = 'EVENT',
+  RATE_LIMIT = 'RATE_LIMIT',
 }
 
 export type CacheType = keyof typeof ECacheType
@@ -16,6 +17,11 @@ export interface CacheBase {
 export interface EventCache extends CacheBase {
   type: 'EVENT'
   data: EventData
+}
+
+export interface RateLimitCache extends CacheBase {
+  type: 'RATE_LIMIT'
+  data: RateLimitData
 }
 
 // export interface TokenBalancesCache extends Omit<CacheBase, 'type'> {
