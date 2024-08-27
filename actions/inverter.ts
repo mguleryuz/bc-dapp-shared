@@ -46,7 +46,7 @@ export const getInverter = async (chainId: number) => {
     // If not found in cache, get the public client and create a new Inverter instance
     const publicClient = await getChainPublicClient(chainId)
 
-    inverter = new Inverter(publicClient)
+    inverter = new Inverter({ publicClient })
 
     // Cache the new Inverter instance
     await cachedData.setItem(key, inverter, {
@@ -63,8 +63,8 @@ export const getWorkflow = async (
 ) => {
   const inverter = await getInverter(chainId)
 
-  return await inverter.getWorkflow(
-    orchestratorAddress as Hex,
-    requestedModules
-  )
+  return await inverter.getWorkflow({
+    orchestratorAddress: orchestratorAddress as Hex,
+    requestedModules,
+  })
 }
